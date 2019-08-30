@@ -5,7 +5,7 @@ import sessionController from '../controllers/sessionController';
 const sessionRouter = express.Router();
 
 sessionRouter.post('/', AuthRequired, sessionController.createMentorshipRequest);
-sessionRouter.patch('/:sessionId/accept', (req, res) => res.send('mentor accepted session request!'));
+sessionRouter.patch('/:sessionId/accept', AuthRequired, sessionController.acceptMentorshipRequest);
 sessionRouter.patch('/:sessionId/reject', (req, res) => res.send('mentor rejected session request!'));
 sessionRouter.post('/:sessionId/review', (req, res) => res.send('review posted!'));
 sessionRouter.delete('/:sessionId/review', (req, res) => res.send('review deleted!'));
