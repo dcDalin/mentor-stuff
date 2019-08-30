@@ -1,5 +1,6 @@
 import Sessions from '../models/sessionModel';
 import validateMentorSession from '../validations/createMentorshipRequest';
+import validateSessionAcceptReq from '../validations/validateSessionAcceptReq';
 
 class SessionController {
   static createMentorshipRequest(req, res) {
@@ -31,26 +32,35 @@ class SessionController {
     });
   }
 
-  static getSingleMentor(req, res) {
-    const { mentorId } = req.params;
-    const mentor = Users.find((value) => value.id === Number(mentorId));
+  static acceptMentorshipRequest(req, res) {
+    const { id } = req.decoded;
+    const { sessionId } = req.params;
 
-    if (!mentor) {
-      return res.status(404).json({
-        message: 'Error',
-        error: 'User not found',
+    const { valid, errors } = validateSessionAcceptReq(id, sessionId);
+    if (!valid) {
+      return res.status(400).json({
+        errors,
       });
     }
-    if (mentor.level === 'Mentor') {
-      return res.status(200).json({
-        status: 200,
-        message: 'Mentor',
-        data: mentor,
+    const sessionExists = Sessions.find((item) => item.sessionId === Number(sessionId));
+
+    if (sessionExists.status === 'Accepted') {
+      return res.json({
+        message: 'Session already accepted',
       });
     }
-    return res.status(404).json({
-      status: 404,
-      message: 'The supplied ID does not belong to a mentor',
+
+    sessionExists.status = 'Accepted';
+    return res.status(200).json({
+      status: '200',
+      data: {
+        sessionId: sessionExists.id,
+        mentorId: sessionExists.mentorId,
+        menteeId: sessionExists.menteeId,
+        questions: sessionExists.questions,
+        menteeEmail: sessionExists.menteeEmail,
+        status: 'Accepted',
+      },
     });
   }
 }
