@@ -19,6 +19,12 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use((req, res) => {
+  res.status(404).json({
+    status: '404',
+    error: 'Page not found',
+  });
+});
 
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/mentors', mentorRouter);
