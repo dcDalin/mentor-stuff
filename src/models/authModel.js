@@ -12,6 +12,32 @@ const users = [
     isAdmin: true,
     level: 'Admin',
   },
+  {
+    id: 2,
+    email: 'user@user.com',
+    firstName: 'User',
+    lastName: 'User',
+    password: 'password',
+    bio: 'User Bio',
+    address: '23333',
+    occupation: 'User',
+    expertise: 'User',
+    isAdmin: false,
+    level: 'User',
+  },
+  {
+    id: 3,
+    email: 'mentor@mentor.com',
+    firstName: 'Mentor',
+    lastName: 'Mentor',
+    password: 'password',
+    bio: 'Mentor Bio',
+    address: '282343',
+    occupation: 'Mentor',
+    expertise: 'Mentor',
+    isAdmin: false,
+    level: 'Mentor',
+  },
 ];
 
 export default users;
