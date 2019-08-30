@@ -19,17 +19,18 @@ app.use(
 );
 
 app.use(bodyParser.json());
+
+app.use('/api/v1/user', userRouter);
+app.use('/api/v1/mentors', mentorRouter);
+app.use('/api/v1/session', sessionRouter);
+app.use('/api/v1/auth', authRouter);
+
 app.use((req, res) => {
   res.status(404).json({
     status: '404',
     error: 'Page not found',
   });
 });
-
-app.use('/api/v1/user', userRouter);
-app.use('/api/v1/mentors', mentorRouter);
-app.use('/api/v1/session', sessionRouter);
-app.use('/api/v1/auth', authRouter);
 
 // eslint-disable-next-line no-console
 app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));

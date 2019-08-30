@@ -24,13 +24,19 @@ class MentorsController {
     if (!mentor) {
       return res.status(404).json({
         message: 'Error',
-        error: 'Mentor not found',
+        error: 'User not found',
       });
     }
-    return res.status(200).json({
-      status: 200,
-      message: 'Mentor',
-      data: mentor,
+    if (mentor.level === 'Mentor') {
+      return res.status(200).json({
+        status: 200,
+        message: 'Mentor',
+        data: mentor,
+      });
+    }
+    return res.status(404).json({
+      status: 404,
+      message: 'The supplied ID does not belong to a mentor',
     });
   }
 }
