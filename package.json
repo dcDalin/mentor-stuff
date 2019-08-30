@@ -1,0 +1,57 @@
+{
+  "name": "free-mentors",
+  "version": "1.0.0",
+  "description": "A Node JS app for  mentoring.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "nodemon --exec babel-node bin/dev",
+    "lint": "eslint \"src/**/*.js\" --fix",
+    "format": "prettier-eslint 'server/**/*.{js,json}' --write"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "prettier-eslint --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kmozart/free-mentors.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kmozart/free-mentors/issues"
+  },
+  "homepage": "https://github.com/Kmozart/free-mentors#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "eslint": "^6.2.2",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-promise": "^4.2.1",
+    "husky": "^3.0.4",
+    "lint-staged": "^9.2.3",
+    "nodemon": "^1.19.1",
+    "prettier-eslint-cli": "^5.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
