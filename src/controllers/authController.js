@@ -16,7 +16,7 @@ class AuthController {
 
     const { valid, errors } = validateSignUpUser(email);
     if (!valid) {
-      return res.status(201).json({
+      return res.status(400).json({
         message: 'Validation errors',
         errors,
       });
@@ -37,7 +37,9 @@ class AuthController {
       level,
     };
     Users.push(newUser);
-    const token = jwt.sign({ id: newId, isAdmin, level }, ENV_VAR.APP_SECRET, {
+    const token = jwt.sign({
+      id: newId, isAdmin, level, email,
+    }, ENV_VAR.APP_SECRET, {
       expiresIn: '24h', // expires in 24 hours
     });
     return res.status(201).json({
@@ -67,6 +69,7 @@ class AuthController {
             id: logUser.id,
             isAdmin: logUser.isAdmin,
             level: logUser.level,
+            email: logUser.email,
           },
           ENV_VAR.APP_SECRET,
           {
